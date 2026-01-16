@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Combined Dosage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #f4f4f4;
+        }
+        .box {
+            background: white;
+            width: 420px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #ddd;
+        }
+        h2 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #004c99;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e6f2ff;
+            border-left: 5px solid #3399ff;
+            font-size: 17px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- DROPS → ML → BOTTLES -->
+<div class="box">
+    <h2>Drops → ml → Bottle Calculator</h2>
+
+    <label>Bottle Size (ml)</label>
+    <input type="number" id="bottle1" placeholder="e.g., 30">
+
+    <label>Drops per dose</label>
+    <input type="number" id="drops" placeholder="e.g., 10">
+
+    <label>Times per day</label>
+    <input type="number" id="times1" placeholder="e.g., 2">
+
+    <label>Duration (days)</label>
+    <input type="number" id="days1" placeholder="e.g., 60">
+
+    <button onclick="calcDrops()">Calculate</button>
+
+    <div class="result" id="out1"></div>
+</div>
+
+
+<!-- ML → BOTTLES -->
+<div class="box">
+    <h2>Liquid ml → Bottle Calculator</h2>
+
+    <label>Bottle Size (ml)</label>
+    <input type="number" id="bottle2" placeholder="e.g., 100">
+
+    <label>ml per dose</label>
+    <input type="number" id="ml" placeholder="e.g., 5">
+
+    <label>Times per day</label>
+    <input type="number" id="times2" placeholder="e.g., 2">
+
+    <label>Duration (days)</label>
+    <input type="number" id="days2" placeholder="e.g., 60">
+
+    <button onclick="calcMl()">Calculate</button>
+
+    <div class="result" id="out2"></div>
+</div>
+
+
+<!-- TABLETS → CUSTOM PACK -->
+<div class="box">
+    <h2>Tablet Pack Calculator (Custom Pack Size)</h2>
+
+    <label>Tablets per pack</label>
+    <input type="number" id="pack" placeholder="e.g., 60 / 100 / 120">
+
+    <label>Tablets per dose</label>
+    <input type="number" id="tabdose" placeholder="e.g., 2">
+
+    <label>Times per day</label>
+    <input type="number" id="times3" placeholder="e.g., 2">
+
+    <label>Duration (days)</label>
+    <input type="number" id="days3" placeholder="e.g., 60">
+
+    <button onclick="calcTabs()">Calculate</button>
+
+    <div class="result" id="out3"></div>
+</div>
+
+
+<script>
+function calcDrops() {
+    let bottle = parseFloat(document.getElementById("bottle1").value);
+    let drops = parseFloat(document.getElementById("drops").value);
+    let times = parseFloat(document.getElementById("times1").value);
+    let days = parseFloat(document.getElementById("days1").value);
+
+    let ml = drops / 20;
+    let total_ml = ml * times * days;
+    let bottles = Math.ceil(total_ml / bottle);
+
+    document.getElementById("out1").innerHTML =
+        "Total ml needed: <b>" + total_ml.toFixed(2) + " ml</b><br>" +
+        "Bottles required: <b>" + bottles + "</b>";
+}
+
+
+function calcMl() {
+    let bottle = parseFloat(document.getElementById("bottle2").value);
+    let dose = parseFloat(document.getElementById("ml").value);
+    let times = parseFloat(document.getElementById("times2").value);
+    let days = parseFloat(document.getElementById("days2").value);
+
+    let total_ml = dose * times * days;
+    let bottles = Math.ceil(total_ml / bottle);
+
+    document.getElementById("out2").innerHTML =
+        "Total ml needed: <b>" + total_ml + " ml</b><br>" +
+        "Bottles required: <b>" + bottles + "</b>";
+}
+
+
+function calcTabs() {
+    let pack = parseFloat(document.getElementById("pack").value);
+    let dose = parseFloat(document.getElementById("tabdose").value);
+    let times = parseFloat(document.getElementById("times3").value);
+    let days = parseFloat(document.getElementById("days3").value);
+
+    let total_tabs = dose * times * days;
+    let packs = Math.ceil(total_tabs / pack);
+
+    document.getElementById("out3").innerHTML =
+        "Total tablets needed: <b>" + total_tabs + "</b><br>" +
+        "Packs required: <b>" + packs + "</b>";
+}
+</script>
+
+</body>
+</html>
